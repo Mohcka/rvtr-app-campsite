@@ -1,5 +1,12 @@
 import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
-import { FormGroup, Validators, FormArray, FormBuilder, AbstractControl, FormControl } from '@angular/forms';
+import {
+  FormGroup,
+  Validators,
+  FormArray,
+  FormBuilder,
+  AbstractControl,
+  FormControl,
+} from '@angular/forms';
 import { getNewDateFromNowBy, formatDate } from '../utils/date-helpers';
 import { ValidationService } from '../../../services/validation/validation.service';
 
@@ -25,7 +32,7 @@ export class BookingModalComponent implements OnInit {
     private formBuilder: FormBuilder,
     private lodgingService: LodgingService,
     private bookingService: BookingService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.newBookingForm();
@@ -48,16 +55,29 @@ export class BookingModalComponent implements OnInit {
     this.booking = {
       stay: {},
       guests: [],
-      rentals: []
+      rentals: [],
     } as Booking;
 
     // Creates new booking form.
     const guests = this.searchData?.guests?.value ? this.searchData.guests.value : 0;
     this.bookingForm = this.formBuilder.group({
-      checkIn: [this.searchData.checkIn.value ? this.searchData.checkIn.value : formatDate(getNewDateFromNowBy(1)), Validators.required],
-      checkOut: [this.searchData.checkOut.value ? this.searchData.checkOut.value : formatDate(getNewDateFromNowBy(1)), Validators.required],
-      guests: this.formBuilder.array(this.createGuestItem(guests) as FormGroup[], [ValidationService.guestsValidator, Validators.required]),
-      rentals: new FormControl(null, [ValidationService.rentalsValidator, Validators.required])
+      checkIn: [
+        this.searchData.checkIn.value
+          ? this.searchData.checkIn.value
+          : formatDate(getNewDateFromNowBy(1)),
+        Validators.required,
+      ],
+      checkOut: [
+        this.searchData.checkOut.value
+          ? this.searchData.checkOut.value
+          : formatDate(getNewDateFromNowBy(1)),
+        Validators.required,
+      ],
+      guests: this.formBuilder.array(this.createGuestItem(guests) as FormGroup[], [
+        ValidationService.guestsValidator,
+        Validators.required,
+      ]),
+      rentals: new FormControl(null, [ValidationService.rentalsValidator, Validators.required]),
     });
     this.bookingForm.controls['guests'].markAsTouched();
     this.bookingForm.controls['rentals'].markAsTouched();
@@ -68,11 +88,10 @@ export class BookingModalComponent implements OnInit {
    * Sends post request to booking api
    */
   onBookingFormSubmit(): void {
-    if (this.bookingForm.invalid)
-      return;
+    if (this.bookingForm.invalid) return;
 
     this.booking.lodgingId = this.lodging.id;
-    this.booking.accountId = "PLACEHOLDERID";
+    this.booking.accountId = 'PLACEHOLDERID';
 
     // Sets the stay property for booking.
     this.booking.stay.checkIn = this.searchData.checkIn.value;
@@ -96,14 +115,17 @@ export class BookingModalComponent implements OnInit {
 
     // TODO: send data as request
     this.closeModal();
-    this.bookingService.post(this.booking)
-      .subscribe(
-        res => console.log(this.booking),
-        err => console.log(this.booking),
-        () => console.log('HTTP request completed.')
-      );
+    this.bookingService.post(this.booking).subscribe(
+      (res) => console.log(this.booking),
+      (err) => console.log(this.booking),
+      () => console.log('HTTP request completed.')
+    );
   }
 
+  /**
+   * Creates one or more guest form groups
+   * @param n Optional parameter of number of form groups to create
+   */
   createGuestItem(n?: number): FormGroup | FormGroup[] {
     if (n == null) {
       return this.formBuilder.group({
@@ -113,14 +135,16 @@ export class BookingModalComponent implements OnInit {
         phone: [null],
       });
     } else {
-      let guests = [];
+      const guests = [];
       for (let i = 0; i < n; i++) {
-        guests.push(this.formBuilder.group({
-          given: [null, Validators.required],
-          family: [null, Validators.required],
-          email: [null, [Validators.required, Validators.email]],
-          phone: [null],
-        }));
+        guests.push(
+          this.formBuilder.group({
+            given: [null, Validators.required],
+            family: [null, Validators.required],
+            email: [null, [Validators.required, Validators.email]],
+            phone: [null],
+          })
+        );
       }
       return guests;
     }
