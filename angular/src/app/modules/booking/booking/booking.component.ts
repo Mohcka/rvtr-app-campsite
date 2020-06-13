@@ -20,7 +20,6 @@ export class BookingComponent implements OnInit {
   lodgings$: Observable<Lodging[]>;
   bookings$: Observable<Booking[]>;
 
-  // @ViewChild('bookingModal') bookingModal: ElementRef;
   @ViewChild(BookingModalComponent) bookingModal: BookingModalComponent;
   bookingForm: FormGroup;
 
