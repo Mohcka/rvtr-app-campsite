@@ -97,8 +97,11 @@ export class BookingComponent implements OnInit {
 
     // TODO: submit form data to http request
   }
-
-  // For later.
+  /**
+   * Creates a 2-dimensional array of lodgings from the original 1D lodging array
+   * @param lodgings Lodging array to convert
+   * @param n number of Lodging items to insert for each row
+   */
   public lodgingsRow(lodgings: Lodging[], n: number): Array<Lodging[]> {
     return lodgings.reduce((accumulator, currentLodge, index, array) => {
       if (index % n === 0) {
