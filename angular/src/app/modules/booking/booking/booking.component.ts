@@ -49,7 +49,7 @@ export class BookingComponent implements OnInit {
     private formBuilder: FormBuilder,
     private lodgingService: LodgingService,
     private bookingService: BookingService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     // Set fields for form group
@@ -92,8 +92,7 @@ export class BookingComponent implements OnInit {
   onSubmit(): void {
     this.submitted = true;
 
-    if (this.searchForm.invalid)
-      return;
+    if (this.searchForm.invalid) return;
 
     this.retreiveLodgingsByPhrase(this.f.location.value);
 
@@ -105,8 +104,7 @@ export class BookingComponent implements OnInit {
     return lodgings.reduce((accumulator, currentLodge, index, array) => {
       if (index % n === 0) {
         const lodgingsSubarry = [];
-        for (let i = index; i < index + n; i++)
-          lodgingsSubarry.push(array[i]);
+        for (let i = index; i < index + n; i++) lodgingsSubarry.push(array[i]);
         accumulator.push(lodgingsSubarry);
       }
       return accumulator;
