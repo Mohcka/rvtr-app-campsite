@@ -2,6 +2,7 @@
 code_coverage/
 dist/
 test_coverage/
+docs/
 
 # macos
 .DS_Store
