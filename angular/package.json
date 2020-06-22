@@ -52,7 +52,7 @@
   "scripts": {
     "scan": "sonar-scanner",
     "build": "ng build",
-    "gen-docs": "npx typedoc --out docs src/app/modules/booking --mode file",
+    "gen-docs": "typedoc --out docs src/app/modules/booking --mode file --exclude \"**/*+(mock).ts\"",
     "e2e": "ng e2e",
     "lint": "ng lint",
     "start": "ng serve",
