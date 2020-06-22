@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LodgingsListComponent } from './lodgings-list.component';
-import { mockLodgings } from '../mock-booking-data';
+import { lodgingsMock } from '../booking-data-mock';
 import { Lodging } from 'src/app/data/lodging.model';
 import { DebugElement, ElementRef } from '@angular/core';
 import { By } from '@angular/platform-browser';
@@ -28,7 +28,7 @@ describe('LodgingsListComponent', () => {
     lodgingsListDe = fixture.debugElement;
     lodgingsListEl = fixture.nativeElement;
 
-    component.lodgings = mockLodgings;
+    component.lodgings = lodgingsMock;
 
     fixture.detectChanges();
   });
@@ -38,8 +38,8 @@ describe('LodgingsListComponent', () => {
   });
 
   it('should create 2D array of lodgings', () => {
-    const resultLodgingRow = component.lodgingsRow(mockLodgings, 1);
-    const expectedLodginRow: Lodging[][] = [[mockLodgings[0]], [mockLodgings[1]]];
+    const resultLodgingRow = component.lodgingsRow(lodgingsMock, 1);
+    const expectedLodginRow: Lodging[][] = [[lodgingsMock[0]], [lodgingsMock[1]]];
 
     expect(resultLodgingRow).toEqual(expectedLodginRow);
   });

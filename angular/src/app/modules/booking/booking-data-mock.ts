@@ -8,7 +8,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { formatDate, getNewDateFromNowBy } from './utils/date-helpers';
 import { RentalUnit } from 'src/app/data/rental-unit.model';
 
-const mockLocations: Location[] = [
+const locationsMock: Location[] = [
   {
     id: '0',
     address: {
@@ -48,7 +48,7 @@ const rentalUnitMock: RentalUnit = {
   type: 'bungalow'
 };
 
-const mockRentals: Rental[] = [
+const rentalsMock: Rental[] = [
   {
     id: '0',
     name: 'Nice Place',
@@ -61,28 +61,28 @@ const mockRentals: Rental[] = [
   },
 ];
 
-const mockReviews: Review[] = [
+const reviewsMock: Review[] = [
   { id: '0', accountId: '0', hotelId: '0', comment: '0', dateCreated: new Date(), rating: 4 },
 ];
 
-const mockLodgings: Lodging[] = [
+const lodgingsMock: Lodging[] = [
   {
     id: '0',
-    location: mockLocations[0],
+    location: locationsMock[0],
     name: 'A Place',
-    rentals: mockRentals,
-    reviews: mockReviews,
+    rentals: rentalsMock,
+    reviews: reviewsMock,
   },
   {
     id: '1',
-    location: mockLocations[1],
+    location: locationsMock[1],
     name: 'The Lodging',
-    rentals: mockRentals,
-    reviews: mockReviews,
+    rentals: rentalsMock,
+    reviews: reviewsMock,
   },
 ];
 
-const mockBookings: Booking[] = [
+const bookingsMock: Booking[] = [
   {
     id: '0',
     accountId: '0',
@@ -94,7 +94,7 @@ const mockBookings: Booking[] = [
   },
 ];
 
-const mockBookingSearchDataSet: BookingSearchData[] = [
+const bookingsSearchInputMock: BookingSearchData[] = [
   {
     guests: new FormControl(1),
     checkIn: new FormControl('2020-01-01'),
@@ -103,4 +103,4 @@ const mockBookingSearchDataSet: BookingSearchData[] = [
   },
 ];
 
-export { mockLocations, mockLodgings, mockRentals, mockReviews, mockBookings, mockBookingSearchDataSet };
+export { locationsMock, lodgingsMock, rentalsMock, reviewsMock, bookingsMock, bookingsSearchInputMock };

@@ -11,7 +11,7 @@ import { LodgingService } from 'src/app/services/lodging/lodging.service';
 import { of } from 'rxjs';
 import { LayoutModule } from 'src/app/layout/layout.module';
 import { Review } from 'src/app/data/review.model';
-import { mockLodgings } from '../mock-booking-data';
+import { lodgingsMock } from '../booking-data-mock';
 import { doesNotReject } from 'assert';
 
 describe('BookingComponent', () => {
@@ -31,7 +31,7 @@ describe('BookingComponent', () => {
     // Create fake LodgingService with CRUD functions
     const lodgingService = jasmine.createSpyObj('LodgingService', ['get', 'post', 'delete', 'put']);
     // Make the spy return a synchronous Observable with the test data
-    getLodgingSpy = lodgingService.get.and.returnValue(of(mockLodgings));
+    getLodgingSpy = lodgingService.get.and.returnValue(of(lodgingsMock));
 
     TestBed.configureTestingModule({
       declarations: [BookingComponent, BookingModalComponent],

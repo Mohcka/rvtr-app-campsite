@@ -8,7 +8,7 @@ import { By } from '@angular/platform-browser';
 import { Booking } from 'src/app/data/booking.model';
 import { Lodging } from 'src/app/data/lodging.model';
 import { BookingSearchData } from '../@types/booking-search-data';
-import { mockBookings, mockLodgings, mockBookingSearchDataSet } from '../mock-booking-data';
+import { bookingsMock, lodgingsMock, bookingsSearchInputMock } from '../booking-data-mock';
 import { Profile } from 'src/app/data/profile.model';
 import { profile } from 'console';
 import { Rental } from 'src/app/data/rental.model';
@@ -49,9 +49,9 @@ describe('BookingModalComponent', () => {
     bookingModalEl = fixture.nativeElement;
 
     // mock input provided by parent component
-    expectedBooking = mockBookings[0];
-    expectedLodging = mockLodgings[0];
-    expectedBookingSearchData = mockBookingSearchDataSet[0];
+    expectedBooking = bookingsMock[0];
+    expectedLodging = lodgingsMock[0];
+    expectedBookingSearchData = bookingsSearchInputMock[0];
 
     // Simulate input for child component
     component.booking = expectedBooking;
@@ -67,7 +67,7 @@ describe('BookingModalComponent', () => {
   });
 
   it('should submit booking form', () => {
-    component.openModal(mockLodgings[0]);
+    component.openModal(lodgingsMock[0]);
     component.bookingForm.setValue({
       stay: {
         checkIn: '2020-01-01',
@@ -104,7 +104,7 @@ describe('BookingModalComponent', () => {
   });
 
   it('should open and close modal', () => {
-    component.openModal(mockLodgings[0]);
+    component.openModal(lodgingsMock[0]);
     expect(component.bookingModal.nativeElement.classList).toContain('is-active');
     component.closeModal();
     expect(component.bookingModal.nativeElement.classList).not.toContain('is-active');
