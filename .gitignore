@@ -8,6 +8,7 @@ test_coverage/
 
 # nodejs
 node_modules/
+package-lock.json
 
 # sonarqube
 .scannerwork/
