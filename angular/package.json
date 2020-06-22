@@ -46,11 +46,13 @@
     "sonarqube-scanner": "^2.6.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
+    "typedoc": "^0.17.7",
     "typescript": "~3.8.3"
   },
   "scripts": {
     "scan": "sonar-scanner",
     "build": "ng build",
+    "gen-docs": "npx typedoc --out docs src/app/modules/booking --mode file",
     "e2e": "ng e2e",
     "lint": "ng lint",
     "start": "ng serve",
