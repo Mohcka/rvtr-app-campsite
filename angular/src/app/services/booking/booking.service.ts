@@ -43,7 +43,7 @@ export class BookingService {
    */
   get(id?: string, params?: HttpParams): Observable<Booking[]> {
     const options = params ? { params: new HttpParams() } : {};
-    return this.apiUrl$.pipe(concatMap((url) => this.http.get<Booking[]>(url[0], options)));
+    return this.apiUrl$.pipe(concatMap((url) => this.http.get<Booking[]>(`${url[0]}/${id ? id : ''}`, options)));
   }
 
   /**
