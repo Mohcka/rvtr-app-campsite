@@ -141,7 +141,6 @@ export class BookingModalComponent implements OnInit {
     // Calcuates the available rentals with input check in and check out dates.
     const checkIn = stayControls.controls['checkIn'].value;
     const checkOut = stayControls.controls['checkOut'].value;
-    console.log(this.lodging);
     this.bookingService.getStays(checkIn, checkOut, this.lodging.id).pipe(
       // Reduce stays to an array of rental unit ids.
       map(stays =>
@@ -213,20 +212,26 @@ export class BookingModalComponent implements OnInit {
         .subscribe(
           res => {
             console.log(res);
-            this.closeModal();
           },
           err => alert('Failed to create booking.'),
-          () => this.bookingsChange.emit(this.bookingService.get())
+          () => {
+            console.log('HTTP Request completed.');
+            this.closeModal();
+            this.bookingsChange.emit(this.bookingService.get());
+          }
         );
     } else if (this.method === 'PUT') {
       this.bookingService.put(this.booking)
         .subscribe(
           res => {
             console.log(res);
-            this.closeModal();
           },
           err => alert('Failed to update booking.'),
-          () => this.bookingsChange.emit(this.bookingService.get())
+          () => {
+            console.log('HTTP Request completed.');
+            this.closeModal();
+            this.bookingsChange.emit(this.bookingService.get());
+          }
         );
     }
   }

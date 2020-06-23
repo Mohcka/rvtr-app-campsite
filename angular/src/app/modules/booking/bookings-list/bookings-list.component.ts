@@ -36,7 +36,9 @@ export class BookingsListComponent implements OnInit {
   /** Calls the bookings service to delete selected booking. */
   public deleteBooking(booking: Booking): void {
     this.bookingsService.delete(booking.id).subscribe(
-      () => this.getBookings()
+      res => this.getBookings(),
+      err => alert('Failed to delete booking'),
+      () => console.log('HTTP Request completed.')
     );
   }
 
