@@ -74,7 +74,7 @@ export class EditProfileComponent implements OnInit {
   // get profile inofrmation from the profile api
   getProfiles(){
     this.accountService.getProfile(this.accountService.getUserId()).subscribe(
-      profile => this.profiles = profile
+      profile => {this.profiles = profile;console.log(this.profiles)}
     );
   }
 

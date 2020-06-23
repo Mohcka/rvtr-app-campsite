@@ -14,7 +14,7 @@
             <!-- Account name container -->
             <div class="tile box has-background-dark is-child">
               <h2 class="title has-text-light is-4">name</h2>
-              <p class="title has-text-light is-6">lorem ipsum</p>
+              <p class="title has-text-light is-6">{{data.name}}</p>
             </div>
 
             <!-- Address details container, gets values from address model -->
@@ -28,7 +28,7 @@
                   <div class="level-item has-text-light">
                     <div>
                       <p class="heading">street</p>
-                      <p class="title has-text-light is-6">987 Main Street</p>
+                      <p class="title has-text-light is-6">{{data.address.street}}</p>
                     </div>
                   </div>
                   
@@ -36,7 +36,7 @@
                   <div class="level-item has-text-light">
                     <div>
                       <p class="heading">apt / unit</p>
-                      <p class="title has-text-light is-6">123</p>
+                      <p class="title has-text-light is-6">{{data.address.unit}}</p>
                     </div>
                   </div>
                 </div>
@@ -48,7 +48,7 @@
                   <div class="level-item has-text-light">
                     <div>
                       <p class="heading">city</p>
-                      <p class="title has-text-light is-6">Dallas</p>
+                      <p class="title has-text-light is-6">{{data.address.city}}</p>
                     </div>
                   </div>
                     
@@ -56,7 +56,7 @@
                   <div class="level-item has-text-light">
                     <div>
                       <p class="heading">state</p>
-                      <p class="title has-text-light is-6">TX</p>
+                      <p class="title has-text-light is-6">{{data.address.stateProvince}}</p>
                     </div>
                   </div>
 
@@ -64,7 +64,7 @@
                   <div class="level-item has-text-light">
                     <div>
                       <p class="heading">Postal Code</p>
-                      <p class="title has-text-light is-6">75200</p>
+                      <p class="title has-text-light is-6">{{data.address.postalCode}}</p>
                     </div>
                   </div>
                 </div>
@@ -76,7 +76,7 @@
                   <div class="level-item has-text-light">
                     <div>
                       <p class="heading">country</p>
-                      <p class="title has-text-light is-6">United States</p>
+                      <p class="title has-text-light is-6">{{data.address.country}}</p>
                     </div>
                   </div>
                 </div>

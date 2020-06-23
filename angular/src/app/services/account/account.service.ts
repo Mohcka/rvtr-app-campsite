@@ -70,12 +70,12 @@ export class AccountService {
   }
 
   getPayment(id?: string): Observable<Payment[]> {
-    const options = id ? { params: new HttpParams().set('id', id) } : {};
+    const options = id ? { params: new HttpParams().set('accountId', id) } : {};
     return this.paymentUrl$.pipe(concatMap((url) => this.http.get<Payment[]>(url, options)));
   }
 
   getProfile(id?: string): Observable<Profile[]> {
-    const options = id ? { params: new HttpParams().set('id', id) } : {};
+    const options = id ? { params: new HttpParams().set('accountId', id) } : {};
     return this.profileUrl$.pipe(concatMap((url) => this.http.get<Profile[]>(url, options)));
   }
 
