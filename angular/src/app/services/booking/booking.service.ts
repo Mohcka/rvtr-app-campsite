@@ -9,7 +9,6 @@ import { Stay } from './../../data/stay.model';
 /**
  * The booking service is the main form of communication from the angular app
  * to the BookingApi application.
- *
  * @export BookingService
  */
 @Injectable({
