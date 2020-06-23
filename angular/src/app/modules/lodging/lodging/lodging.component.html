@@ -113,7 +113,7 @@
         </div>
         <div class="tile">
           <div class="tile is-parent">
-            <div class="tile box is-child" *ngFor="let rental of lodge.rentals">
+            <div class="tile box is-child" *ngFor="let rental of lodge.rentals.slice(0,1)">
               <h2 class="title is-4">Rooms</h2>
               <uic-lodging-room [room]="rental.rentalUnit.bedrooms[0]"></uic-lodging-room>
               <hr>

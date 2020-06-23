@@ -20,13 +20,6 @@ export class EditAccountComponent implements OnInit {
   };
 
   // functions
-  // function to check if an input field is nul/undefined/or white spaces
-  isNullOrWhitespace(input: string) {
-    if (typeof input === 'undefined' || input === null) {
-      return true;
-    }
-    return input.replace(/\s/g, '').length < 1;
-  }
 
   // http get from account service to obtain all the information of an account based on account id
   get() {
@@ -38,9 +31,12 @@ export class EditAccountComponent implements OnInit {
 
   // http put from account service to update account information, validation is very ugly
   onSubmit() {
-    if (this.isNullOrWhitespace(this.data.name) || this.isNullOrWhitespace(this.data.address.street) ||
-      this.isNullOrWhitespace(this.data.address.city) || this.isNullOrWhitespace(this.data.address.stateProvince) ||
-      this.isNullOrWhitespace(this.data.address.postalCode) || this.isNullOrWhitespace(this.data.address.country) ||
+    if (this.accountService.isNullOrWhitespace(this.data.name) ||
+        this.accountService.isNullOrWhitespace(this.data.address.street) ||
+        this.accountService.isNullOrWhitespace(this.data.address.city) ||
+        this.accountService.isNullOrWhitespace(this.data.address.stateProvince) ||
+        this.accountService.isNullOrWhitespace(this.data.address.postalCode) ||
+        this.accountService.isNullOrWhitespace(this.data.address.country) ||
       this.data.payments.length <= 0 || this.data.profiles.length <= 0) {
       confirm('Please fill all the information and have at least one payment and profile before you update');
     } else {

@@ -46,14 +46,6 @@ export class EditProfileComponent implements OnInit {
     this.hideProfile = !this.hideProfile;
   }
 
-  // function to check if an input field is nul/undefined/or white spaces
-  isNullOrWhitespace(input: string) {
-    if (typeof input === 'undefined' || input === null) {
-      return true;
-    }
-    return input.replace(/\s/g, '').length < 1;
-  }
-
   // For transferring uploaded image to base64
   async fileChangeEvent(fileInput: any) {
     const result = await this.accountService.validateImage(fileInput);
@@ -82,9 +74,9 @@ export class EditProfileComponent implements OnInit {
   addProfile() {
     if (this.profiles.some(x => x.name.given === this.newProfile.name.given &&
        x.name.family === this.newProfile.name.family) ||
-      this.isNullOrWhitespace(this.newProfile.name.given) ||
-      this.isNullOrWhitespace(this.newProfile.name.family) ||
-      this.isNullOrWhitespace(this.newProfile.email) ||
+      this.accountService.isNullOrWhitespace(this.newProfile.name.given) ||
+      this.accountService.isNullOrWhitespace(this.newProfile.name.family) ||
+      this.accountService.isNullOrWhitespace(this.newProfile.email) ||
       this.newProfile.phone.toString().length !== 10) {
       return console.log('Error, please try again');
     }

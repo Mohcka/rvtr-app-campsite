@@ -6,7 +6,6 @@
     },
     "lodging": "https://localhost:44326/api/v0",
     "account": {
-      "_comment":"'https://localhost:44385/api/v0/'https://my-json-server.typicode.com/P3-Team-A/demo/ for localhost",
       "base": "https://localhost:44385/api/v0/",
       "uri": {
         "account": "Account",
