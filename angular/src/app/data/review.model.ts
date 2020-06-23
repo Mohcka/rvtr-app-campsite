@@ -1,3 +1,5 @@
+import { Lodging } from './lodging.model';
+
 /**
  * Represents the _Review_ model
  *
@@ -14,6 +16,7 @@ export interface Review {
   id: string;
   accountId: string;
   lodgingId: string;
+  lodging: Lodging;
   comment: string;
   dateCreated: Date;
   rating: number;

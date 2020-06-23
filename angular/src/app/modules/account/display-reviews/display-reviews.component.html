@@ -1,0 +1,37 @@
+
+      <h2 class="title is-4">reviews</h2>
+
+      <!-- Lists all the reviews for an account -->
+      <div class="level" *ngFor="let review of reviews">
+        <!-- Contains the image for a review -->
+        <div class="level-item">
+          <figure class="image is-64x64">
+            <img alt="placeholder image" class="is-rounded"
+              src="https://bulma.io/images/placeholders/128x128.png">
+          </figure>
+        </div>
+
+        <!-- Reviewed lodge name container -->
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading">lodging</p>
+            <p class="title is-6">{{review.lodging.name}}</p>
+          </div>
+        </div>
+
+        <!-- Review rating container -->
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading">rating</p>
+            <p class="title is-6">{{review.rating}}</p>
+          </div>
+        </div>
+
+        <!-- Review date container -->
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading">date</p>
+            <p class="title is-6">{{review.dateCreated | date:'shortDate'}}</p>
+          </div>
+        </div>
+      </div>

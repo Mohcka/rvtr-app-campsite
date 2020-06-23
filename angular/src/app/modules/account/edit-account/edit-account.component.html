@@ -1,0 +1,105 @@
+<section class="hero is-fullheight-with-navbar">
+  <div class="hero-head">
+    <!-- Top level form for editing account information -->
+    <form #editAccount="ngForm" (ngSubmit)="onSubmit()">
+      <div class="container">
+        <br>
+        <h1 class="title is-2">account</h1>
+        <div class="tile is-ancestor">
+          <!-- Basic account information container for editing account, address, payments -->
+          <div class="tile is-6 left-tile">
+            <div class="tile is-parent is-vertical">
+              <!-- Edit address information container -->
+              <div class="tile box has-background-dark is-child" *ngIf="data.address">
+                <span class="title has-text-light is-4">name</span><span class="level-right"><button class="button is-small level-right" 
+                id="update-button" type="submit">Update</button></span>
+                <input class="title has-text-dark is-4" [(ngModel)]="data.name" name="name">
+                <br>
+                <h2 class="title has-text-light is-4">address</h2>
+                <div class="level">
+                  <div class="level-left">
+                    <!-- Displays and allows edits to the address street name -->
+                    <div class="level-item has-text-light">
+                      <div>
+                        <p class="heading">street</p>
+                        <input class="has-text-dark is-6" [(ngModel)]="data.address.street"
+                          name="street">
+                      </div>
+                    </div>
+                    <!-- Displays and allows edits to the address unit -->
+                    <div class="level-item has-text-light">
+                      <div>
+                        <p class="heading">apt / unit</p>
+                        <input class="has-text-dark is-6" [(ngModel)]="data.address.unit"
+                          name="unit">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="level">
+                  <div class="level-left">
+                    <!-- Displays and allows edits to the address city name -->
+                    <div class="level-item has-text-light">
+                      <div>
+                        <p class="heading">city</p>
+                        <input class="has-text-dark is-6" [(ngModel)]="data.address.city"
+                          name="city">
+                      </div>
+                    </div>
+                    <!-- Displays and allows edits to the address state  -->
+                    <div class="level-item has-text-light">
+                      <div>
+                        <p class="heading">state</p>
+                        <input class="has-text-dark is-6"
+                          [(ngModel)]="data.address.stateProvince" name="state">
+                      </div>
+                    </div>
+                    <!-- Displays and allows edits to the address postal code -->
+                    <div class="level-item has-text-light">
+                      <div>
+                        <p class="heading">Postal Code</p>
+                        <input class="has-text-dark is-6 tile" id="postal-code"
+                          [(ngModel)]="data.address.postalCode" name="zip">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="level">
+                  <div class="level-left">
+                    <!-- Displays and allows edits to the country name -->
+                    <div class="level-item has-text-light">
+                      <div>
+                        <p class="heading">country</p>
+                        <input class="has-text-dark is-6" [(ngModel)]="data.address.country"
+                          name="country">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Edit payment information container -->
+              <div class="tile box has-background-dark is-child">
+                  <uic-edit-payment></uic-edit-payment>
+              </div>
+            </div>
+          </div>
+
+          <!-- Main profile container for adding, displaying account profiles -->
+          <div class="tile is-7">
+            <div class="tile is-vertical">
+              <div class="tile is-parent">
+                <div class="tile box is-child">
+                  <uic-edit-profile></uic-edit-profile>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Submission button for applying account information changes -->
+        <div>
+          <button class="button is-large" id="update-button" type="button" (click)="onBack()">Back</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
