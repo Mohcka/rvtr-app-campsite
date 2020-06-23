@@ -3,13 +3,12 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { EditAccountComponent } from './edit-account.component';
 import { AccountService } from 'src/app/services/account/account.service';
 import { Account } from '../../../data/account.model';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { of } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 
-xdescribe('EditAccountComponent', () => {
+describe('EditAccountComponent', () => {
   let component: EditAccountComponent;
   let fixture: ComponentFixture<EditAccountComponent>;
 
@@ -28,7 +27,7 @@ xdescribe('EditAccountComponent', () => {
   };
 
   beforeEach(async(() => {
-    accountServiceMock = jasmine.createSpyObj([null]);
+    accountServiceMock = jasmine.createSpyObj(['get', 'put']);
 
     TestBed.configureTestingModule({
       declarations: [EditAccountComponent],
@@ -36,7 +35,6 @@ xdescribe('EditAccountComponent', () => {
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: AccountService, useValue: accountServiceMock }
       ],
-      schemas: [NO_ERRORS_SCHEMA],
       imports: [FormsModule, RouterTestingModule]
     })
       .compileComponents();
@@ -98,38 +96,18 @@ xdescribe('EditAccountComponent', () => {
     component = fixture.componentInstance;
   });
 
-  xit('should create', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  xit('should load account on creation', () => {
+  it('should load account on creation', () => {
     accountServiceMock.get.and.returnValue(of(accountMock));
     fixture.detectChanges();
 
     expect(component.data).toBe(accountMock[0]);
   });
 
-  xdescribe('toggleCard', () => {
-
-    it('should show card after toggle', () => {
-      // component.toggleCard();
-
-      // expect(component.hideCard).toBeFalse();
-      // Test the actual element
-    });
-  });
-
-  xdescribe('toggleProfile', () => {
-
-    it('should show profile after toggle', () => {
-      // component.toggleProfile();
-
-      // expect(component.hideProfile).toBeFalse();
-      // Test the actual element
-    });
-  });
-
-  xdescribe('isNullOrWhitespace', () => {
+  describe('isNullOrWhitespace', () => {
     it('should return true on null string', () => {
 
       expect(component.isNullOrWhitespace(null)).toBeTrue();
@@ -148,115 +126,7 @@ xdescribe('EditAccountComponent', () => {
     });
   });
 
-  xdescribe('addCard', () => {
-    it('should add valid card', () => {
-      accountServiceMock.get.and.returnValue(of(accountMock));
-      fixture.detectChanges();
-
-      const paymentCount = component.data.payments.length;
-      // component.addCard('TestCard', 5859752099176973, new Date('12/1/2022'));
-
-      expect(component.data.payments.length).toBe(paymentCount);
-    });
-    it('should not add card with empty name', () => {
-      accountServiceMock.get.and.returnValue(of(accountMock));
-      fixture.detectChanges();
-
-      const paymentCount = component.data.payments.length;
-      // component.addCard('', 111111111111111, new Date('12/1/2022'));
-
-      expect(component.data.payments.length).toBe(paymentCount);
-    });
-    it('should not add card with invalid number', () => {
-      accountServiceMock.get.and.returnValue(of(accountMock));
-      fixture.detectChanges();
-
-      const paymentCount = component.data.payments.length;
-      // component.addCard('TestCard', 111111111111, new Date('12/1/2022'));
-
-      expect(component.data.payments.length).toBe(paymentCount);
-    });
-    it('should not add expired card', () => {
-      accountServiceMock.get.and.returnValue(of(accountMock));
-      fixture.detectChanges();
-
-      const paymentCount = component.data.payments.length;
-      // component.addCard('TestCard', 111111111111111, new Date('12/1/1922'));
-
-      expect(component.data.payments.length).toBe(paymentCount);
-    });
-  });
-
-  xdescribe('removeCard', () => {
-    it('removes the correct card', () => {
-      accountServiceMock.get.and.returnValue(of(accountMock));
-      fixture.detectChanges();
-
-      // component.removeCard(accountMock[0].payments[1]);
-
-      expect(component.data.payments.length).toBe(1);
-      expect(component.data.payments[0]).toBe(accountMock[0].payments[0]);
-    });
-  });
-
-  xdescribe('addProfile', () => {
-    it('should add valid profile', () => {
-      accountServiceMock.get.and.returnValue(of(accountMock));
-      fixture.detectChanges();
-
-      // component.addProfile('Tim', 'Tom', 'Adult', 'tom@tim.com', 5551234567, null);
-
-      expect(component.data.profiles.length).toBe(3);
-      expect(component.data.profiles[2].email).toBe('tom@tim.com');
-    });
-    it('should not add profile with empty name', () => {
-      accountServiceMock.get.and.returnValue(of(accountMock));
-      fixture.detectChanges();
-
-      // component.addProfile('', 'Tom', 'Adult', 'tom@tim.com', 5551234567, null);
-
-      expect(component.data.profiles.length).toBe(2);
-    });
-    it('should not add profile with duplicate names', () => {
-      accountServiceMock.get.and.returnValue(of(accountMock));
-      fixture.detectChanges();
-
-      // component.addProfile('Jane', 'Doe', 'Adult', 'tom@tim.com', 5551234567, null);
-
-      expect(component.data.profiles.length).toBe(2);
-    });
-    it('should not add profile with invalid phone number', () => {
-      accountServiceMock.get.and.returnValue(of(accountMock));
-      fixture.detectChanges();
-
-      // component.addProfile('Tim', 'Tom', 'Adult', 'tom@tim.com', 555123457, null);
-
-      expect(component.data.profiles.length).toBe(2);
-    });
-    it('should not add profile with empty email', () => {
-      accountServiceMock.get.and.returnValue(of(accountMock));
-      fixture.detectChanges();
-
-      // component.addProfile('', 'Tom', 'Adult', '', 5551234567, null);
-
-      expect(component.data.profiles.length).toBe(2);
-    });
-  });
-
-  xdescribe('removeProfile', () => {
-
-    it('should remove correct profile', () => {
-      accountServiceMock.get.and.returnValue(of(accountMock));
-      fixture.detectChanges();
-
-      // component.removeProfile(accountMock[0].profiles[0]);
-
-      expect(component.data.profiles.length).toBe(1);
-      expect(component.data.profiles[0]).toBe(accountMock[0].profiles[0]);
-    });
-  });
-
-  xdescribe('onSubmit', () => {
+  describe('onSubmit', () => {
     it('should call put on AccountService with valid account', () => {
       accountServiceMock.get.and.returnValue(of(accountMock));
       accountServiceMock.put.and.returnValue(of(accountMock));

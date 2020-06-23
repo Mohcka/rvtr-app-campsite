@@ -88,7 +88,6 @@ export class EditProfileComponent implements OnInit {
       this.newProfile.phone.toString().length !== 10) {
       return console.log('Error, please try again');
     }
-    console.log(this.newProfile);
     this.accountService.postProfile(this.newProfile).subscribe(profile => {
         this.getProfiles();
         this.toggleProfile();

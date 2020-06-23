@@ -1,4 +1,5 @@
 import { Lodging } from './lodging.model';
+
 /**
  * Represents the _Review_ model
  *
@@ -6,7 +7,6 @@ import { Lodging } from './lodging.model';
  * id: string;
  * accountId: string;
  * lodgingId: string;
- * lodging: Lodging;
  * comment: string;
  * dateCreated: Date;
  * rating: number;

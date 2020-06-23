@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute, Router } from '@angular/router';
 import { EditProfileComponent } from './edit-profile.component';
 import { AccountService } from 'src/app/services/account/account.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
@@ -7,48 +6,26 @@ import { FormsModule } from '@angular/forms';
 import { of } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Profile } from '../../../data/profile.model';
-import {HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-
-
-
 
 describe('EditProfileComponent', () => {
   let component: EditProfileComponent;
   let fixture: ComponentFixture<EditProfileComponent>;
-  let httpTestingController: HttpTestingController;
-  let accountServiceMock: AccountService;
 
+  let accountServiceMock;
   let profileMock: Profile[];
 
-  const activatedRouteStub = {
-    snapshot: {
-      paramMap: {
-        get() {
-          return 1;
-        }
-      }
-    }
-  };
-
   beforeEach(async(() => {
-    // accountServiceMock = jasmine.createSpyObj(['getProfiles']);
-    // (<jasmine.Spy>accountServiceMock.getFileReference).and.returnValue({
-    //   getUserId: () => of(null)
-    // });
+    accountServiceMock = jasmine.createSpyObj(['getProfile', 'getUserId', 'postProfile', 'deleteProfile']);
+
     TestBed.configureTestingModule({
       declarations: [EditProfileComponent],
-
-      providers: [AccountService],
+      providers: [
+        { provide: AccountService, useValue: accountServiceMock }
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-      imports: [FormsModule, RouterTestingModule, HttpClientTestingModule]
+      imports: [FormsModule, RouterTestingModule]
     })
       .compileComponents();
-    fixture = TestBed.createComponent(EditProfileComponent);
-    component = fixture.componentInstance;
-
-       // We inject our service (which imports the HttpClient) and the Test Controller
-    httpTestingController = TestBed.inject(HttpTestingController);
-    accountServiceMock = TestBed.inject(AccountService);
   }));
 
   beforeEach(() => {
@@ -78,18 +55,21 @@ describe('EditProfileComponent', () => {
         image: null
       },
     ];
+    fixture = TestBed.createComponent(EditProfileComponent);
+    component = fixture.componentInstance;
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  // xit('should load profile on creation', () => {
-  //   accountServiceMock.get.and.returnValue(of(profileMock));
-  //   fixture.detectChanges();
+  it('should load profile on creation', () => {
+    accountServiceMock.getProfile.and.returnValue(of(profileMock));
+    accountServiceMock.getUserId.and.returnValue(of(1));
+    fixture.detectChanges();
 
-  //   expect(component).toBe(profileMock);
-  // });
+    expect(component.profiles).toBe(profileMock);
+  });
 
   describe('toggleProfile', () => {
 
@@ -120,11 +100,12 @@ describe('EditProfileComponent', () => {
     });
   });
 
-  xdescribe('addProfile', () => {
+  describe('addProfile', () => {
     it('should add valid profile', () => {
-      // accountServiceMock.get.and.returnValue(of());
-      fixture.detectChanges();
-      component.newProfile =  {
+      accountServiceMock.getProfile.and.returnValue(of(profileMock));
+      accountServiceMock.getUserId.and.returnValue(of(1));
+      accountServiceMock.postProfile.and.returnValue(of(true));
+      const newProfile: Profile = {
         id: 1,
         accountId: 1,
         email: 'tom@tim.com',
@@ -137,28 +118,28 @@ describe('EditProfileComponent', () => {
         age: 'Adult',
         image: null
       };
+      component.newProfile = newProfile;
+      profileMock.push(newProfile);
+      fixture.detectChanges();
       component.addProfile();
 
       expect(component.profiles.length).toBe(3);
       expect(component.profiles[2].email).toBe('tom@tim.com');
     });
   });
+
+  describe('removeProfile', () => {
+    it('should remove correct profile', () => {
+      accountServiceMock.getProfile.and.returnValue(of(profileMock));
+      accountServiceMock.getUserId.and.returnValue(of(1));
+      accountServiceMock.deleteProfile.and.returnValue(of(true));
+      fixture.detectChanges();
+
+      component.removeProfile(profileMock[0].id);
+      profileMock.shift();
+
+      expect(component.profiles.length).toBe(1);
+      expect(component.profiles[0]).toBe(profileMock[0]);
+    });
+  });
 });
-  // describe('removeProfile', () => {
-  //   it('should remove correct profile', () => {
-  //     accountServiceMock.get.and.returnValue(of(profileMock));
-  //     fixture.detectChanges();
-  //     component.removeProfile(profileMock[0].profiles[0]);
-  //     expect(component.data.profiles.length).toBe(1);
-  //     expect(component.data.profiles[0]).toBe(profileMock[0].profiles[0]);
-  //   });
-  // });
-  // describe('onSubmit', () => {
-  //   it('should call put on AccountService with valid account', () => {
-  //     accountServiceMock.get.and.returnValue(of(profileMock));
-  //     accountServiceMock.put.and.returnValue(of(profileMock));
-  //     fixture.detectChanges();
-  //     component.onSubmit();
-  //     expect(accountServiceMock.put).toHaveBeenCalled();
-  //   });
-  // });

@@ -18,7 +18,10 @@ export interface Config {
         profile: string;
       }
     };
-    booking: string;
+    booking: {
+      booking: string,
+      stay: string
+    };
     lodging: string;
     monitoring: string;
   };

@@ -3,11 +3,6 @@ import { AccountComponent } from './account.component';
 import { AccountService } from 'src/app/services/account/account.service';
 import { Account } from '../../../data/account.model';
 import { ActivatedRoute } from '@angular/router';
-import { LodgingService } from 'src/app/services/lodging/lodging.service';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { Review } from 'src/app/data/review.model';
-import { Booking } from 'src/app/data/booking.model';
-import { Lodging } from 'src/app/data/lodging.model';
 import { of } from 'rxjs';
 
 describe('AccountComponent', () => {
@@ -15,7 +10,6 @@ describe('AccountComponent', () => {
   let fixture: ComponentFixture<AccountComponent>;
 
   let accountServiceMock;
-  let lodgingServiceMock;
   const activatedRouteStub = {
     snapshot: {
       paramMap: {
@@ -27,22 +21,16 @@ describe('AccountComponent', () => {
   };
 
   let accountMock: Account[];
-  let reviewsMock: Review[];
-  let bookingsMock: Booking[];
-  let lodgingMock: Lodging[];
 
   beforeEach(async(() => {
     accountServiceMock = jasmine.createSpyObj(['get', 'getBookings', 'getReviews', 'getUserId']);
-    lodgingServiceMock = jasmine.createSpyObj(['get']);
 
     TestBed.configureTestingModule({
       declarations: [AccountComponent],
       providers: [
         { provide: AccountService, useValue: accountServiceMock },
-        { provide: LodgingService, useValue: lodgingServiceMock },
         { provide: ActivatedRoute, useValue: activatedRouteStub }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(AccountComponent);
@@ -99,75 +87,14 @@ describe('AccountComponent', () => {
         image: null
       }]
     }];
-    reviewsMock = [
-      {
-        id: '1',
-        accountId: '1',
-        lodgingId: '1',
-        lodging: null,
-        comment: 'good stuff man',
-        dateCreated: new Date('6/10/2020'),
-        rating: 4
-      }
-    ];
-    bookingsMock = [
-      {
-        id: '1',
-        accountId: '1',
-        lodgingId: '1',
-        lodging: null,
-        guests: null,
-        rentals: null,
-        stay: {
-          id: '1',
-          checkIn: new Date('1/10/2020'),
-          checkOut: new Date('1/15/2020'),
-          dateCreated: null,
-          dateModified: null
-        },
-        status: null
-      }
-    ];
-    lodgingMock = [
-      {
-        id: '1',
-        location: null,
-        name: 'name',
-        rentals: [],
-        reviews: []
-      }
-    ];
   });
 
   it('should create', () => {
-    reviewsMock = [];
-    bookingsMock = [];
-
     accountServiceMock.get.and.returnValue(of(accountMock));
-    accountServiceMock.getReviews.and.returnValue(of(reviewsMock));
-    accountServiceMock.getBookings.and.returnValue(of(bookingsMock));
     accountServiceMock.getUserId.and.returnValue(1);
-
-    lodgingServiceMock.get.and.returnValue(of(lodgingMock));
 
     fixture.detectChanges();
 
     expect(component).toBeTruthy();
-  });
-
-  it('should not call lodging service if 0 reviews and bookings', () => {
-    reviewsMock = [];
-    bookingsMock = [];
-
-    accountServiceMock.get.and.returnValue(of(accountMock));
-    accountServiceMock.getReviews.and.returnValue(of(reviewsMock));
-    accountServiceMock.getBookings.and.returnValue(of(bookingsMock));
-    accountServiceMock.getUserId.and.returnValue(1);
-
-    lodgingServiceMock.get.and.returnValue(of(lodgingMock));
-
-    fixture.detectChanges();
-
-    expect(lodgingServiceMock.get).toHaveBeenCalledTimes(0);
   });
 });
