@@ -16,7 +16,7 @@ export interface Review {
   id: string;
   accountId: string;
   lodgingId: string;
-  lodging: Lodging;
+  lodging?: Lodging;
   comment: string;
   dateCreated: Date;
   rating: number;
