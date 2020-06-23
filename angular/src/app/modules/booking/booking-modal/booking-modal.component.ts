@@ -141,6 +141,7 @@ export class BookingModalComponent implements OnInit {
     // Calcuates the available rentals with input check in and check out dates.
     const checkIn = stayControls.controls['checkIn'].value;
     const checkOut = stayControls.controls['checkOut'].value;
+    console.log(this.lodging);
     this.bookingService.getStays(checkIn, checkOut, this.lodging.id).pipe(
       // Reduce stays to an array of rental unit ids.
       map(stays =>
@@ -245,8 +246,8 @@ export class BookingModalComponent implements OnInit {
       this.method = 'PUT';
       this.booking = booking;
       this.lodging = { id: this.booking.lodgingId } as Lodging;
-      this.lodgingService.get(this.booking.lodgingId, new HttpParams().set('IncludeImages', true.toString())).subscribe(data => {
-        this.lodging = data[0];
+      this.lodgingService.get(this.booking.lodgingId, new HttpParams().set('IncludeImages', true.toString())).subscribe((data: any) => {
+        this.lodging = data;
         this.newBookingForm();
       });
     }
