@@ -3,6 +3,7 @@ import { AccountService } from 'src/app/services/account/account.service';
 import { DisplayReviewsComponent } from './display-reviews.component';
 import { Review } from 'src/app/data/review.model';
 import { of } from 'rxjs';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('DisplayReviewsComponent', () => {
   let component: DisplayReviewsComponent;
@@ -16,12 +17,13 @@ describe('DisplayReviewsComponent', () => {
     accountServiceMock = jasmine.createSpyObj(['getReviews', 'getUserId']);
 
     TestBed.configureTestingModule({
-      declarations: [ DisplayReviewsComponent ],
+      declarations: [DisplayReviewsComponent],
+      imports: [HttpClientTestingModule],
       providers: [
         { provide: AccountService, useValue: accountServiceMock }
       ],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -34,7 +36,10 @@ describe('DisplayReviewsComponent', () => {
         location: null,
         name: 'Hilton',
         rentals: null,
-        reviews: null
+        reviews: null,
+        description: '',
+        amenities: [],
+        images: []
       },
       comment: 'good stuff man',
       dateCreated: new Date('6/10/2020'),
@@ -49,7 +54,10 @@ describe('DisplayReviewsComponent', () => {
         location: null,
         name: 'Marriot',
         rentals: null,
-        reviews: null
+        reviews: null,
+        description: '',
+        amenities: [],
+        images: []
       },
       comment: 'super bad',
       dateCreated: new Date('6/10/2020'),
