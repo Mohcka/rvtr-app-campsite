@@ -212,20 +212,26 @@ export class BookingModalComponent implements OnInit {
         .subscribe(
           res => {
             console.log(res);
-            this.closeModal();
           },
           err => alert('Failed to create booking.'),
-          () => this.bookingsChange.emit(this.bookingService.get())
+          () => {
+            console.log('HTTP Request completed.');
+            this.closeModal();
+            this.bookingsChange.emit(this.bookingService.get());
+          }
         );
     } else if (this.method === 'PUT') {
       this.bookingService.put(this.booking)
         .subscribe(
           res => {
             console.log(res);
-            this.closeModal();
           },
           err => alert('Failed to update booking.'),
-          () => this.bookingsChange.emit(this.bookingService.get())
+          () => {
+            console.log('HTTP Request completed.');
+            this.closeModal();
+            this.bookingsChange.emit(this.bookingService.get());
+          }
         );
     }
   }
@@ -245,8 +251,8 @@ export class BookingModalComponent implements OnInit {
       this.method = 'PUT';
       this.booking = booking;
       this.lodging = { id: this.booking.lodgingId } as Lodging;
-      this.lodgingService.get(this.booking.lodgingId, new HttpParams().set('IncludeImages', true.toString())).subscribe(data => {
-        this.lodging = data[0];
+      this.lodgingService.get(this.booking.lodgingId, new HttpParams().set('IncludeImages', true.toString())).subscribe((data: any) => {
+        this.lodging = data;
         this.newBookingForm();
       });
     }

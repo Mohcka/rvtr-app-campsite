@@ -1,13 +1,13 @@
 {
   "api": {
     "booking": {
-      "booking": "https://localhost:5001/api/v0/Booking",
-      "stay": "https://localhost:5001/api/v0/Stay"
+      "booking": "https://localhost:44334/api/v0/Booking",
+      "stay": "https://localhost:44334/api/v0/Stay"
     },
-    "lodging": "https://localhost:5001/api/v0",
+    "lodging": "https://localhost:44326/api/v0",
     "account": {
-      "_comment":"'https://localhost:44385/api/v0/' for localhost",
-      "base": "https://my-json-server.typicode.com/P3-Team-A/demo/",
+      "_comment":"'https://localhost:44326/api/v0/' for localhost",
+      "base": "https://localhost:44385/api/v0/",
       "uri": {
         "account": "Account",
         "payment": "Payment",
