@@ -4,8 +4,16 @@
       "booking": "https://localhost:5001/api/v0/Booking",
       "stay": "https://localhost:5001/api/v0/Stay"
     },
-    "account": "http://localhost:3000/account",
     "lodging": "https://localhost:5001/api/v0",
+    "account": {
+      "_comment":"'https://localhost:44385/api/v0/' for localhost",
+      "base": "https://my-json-server.typicode.com/P3-Team-A/demo/",
+      "uri": {
+        "account": "Account",
+        "payment": "Payment",
+        "profile": "Profile"
+      }
+    },
     "monitoring": "https://ec61288c429544a6ad850b94de25004a@o388320.ingest.sentry.io/5229046"
   },
   "navigation": {

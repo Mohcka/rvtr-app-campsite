@@ -1,0 +1,36 @@
+<h2 class="title is-4">bookings</h2>
+
+<!-- Lists the bookings currently under an account -->
+<div class="level" *ngFor="let booking of bookings">
+  <!-- Displays the image for a particular booking -->
+  <div class="level-item">
+    <figure class="image is-64x64">
+      <img alt="placeholder image" class="is-rounded"
+        src="https://bulma.io/images/placeholders/128x128.png">
+    </figure>
+  </div>
+
+  <!-- Booking address state name container -->
+  <div class="level-item has-text-centered">
+    <div>
+      <p class="heading">location</p>
+      <p class="title is-6" *ngIf="booking.lodging">{{booking.lodging.location.address.state}}</p>
+    </div>
+  </div>
+
+  <!-- Booking check-in date container -->
+  <div class="level-item has-text-centered">
+    <div>
+      <p class="heading">check-in</p>
+      <p class="title is-6">{{booking.stay.checkIn | date:'shortDate'}}</p>
+    </div>
+  </div>
+
+  <!-- Booking check-out date container -->
+  <div class="level-item has-text-centered">
+    <div>
+      <p class="heading">check-out</p>
+      <p class="title is-6">{{booking.stay.checkOut | date:'shortDate'}}</p>
+    </div>
+  </div>
+</div>

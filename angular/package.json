@@ -15,6 +15,7 @@
     "@angular/router": "~9.1.0",
     "@fortawesome/fontawesome-free": "^5.13.0",
     "@sentry/browser": "^5.15.5",
+    "@types/lodash": "^4.14.155",
     "bulma": "^0.8.1",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
@@ -22,7 +23,7 @@
   },
   "devDependencies": {
     "@angular-builders/custom-webpack": "^9.1.0",
-    "@angular-devkit/build-angular": "~0.901.0",
+    "@angular-devkit/build-angular": "^0.901.8",
     "@angular/cli": "~9.1.0",
     "@angular/compiler-cli": "~9.1.0",
     "@angular/language-service": "~9.1.0",
