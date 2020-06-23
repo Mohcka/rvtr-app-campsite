@@ -279,4 +279,12 @@ export class AccountService {
       return sum % 10 === 0;
     }
   }
+
+  // function to check if an input field is nul/undefined/or white spaces
+  isNullOrWhitespace(input: string) {
+    if (typeof input === 'undefined' || input === null) {
+      return true;
+    }
+    return input.replace(/\s/g, '').length < 1;
+  }
 }

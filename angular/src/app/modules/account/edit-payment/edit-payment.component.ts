@@ -37,18 +37,10 @@ export class EditPaymentComponent implements OnInit {
     this.hideCard = !this.hideCard;
   }
 
-  // function to check if an input field is nul/undefined/or white spaces
-  isNullOrWhitespace(input: string) {
-    if (typeof input === 'undefined' || input === null) {
-      return true;
-    }
-    return input.replace(/\s/g, '').length < 1;
-  }
-
   // adds a new credit card info to the array of payments in the data:Account property
   addCard() {
     const today = new Date();
-    if (this.isNullOrWhitespace(this.newCard.cardName) ||
+    if (this.accountService.isNullOrWhitespace(this.newCard.cardName) ||
       today > this.newCard.cardExpirationDate ||
       !this.accountService.isValidCreditCard(this.newCard.cardNumber)) {
       return console.log('Error, please try again');

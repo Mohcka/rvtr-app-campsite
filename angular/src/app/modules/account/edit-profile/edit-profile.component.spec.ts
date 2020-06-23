@@ -1,11 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { EditProfileComponent } from './edit-profile.component';
 import { AccountService } from 'src/app/services/account/account.service';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+// import { FormsModule } from '@angular/forms';
 import { of } from 'rxjs';
-import { RouterTestingModule } from '@angular/router/testing';
 import { Profile } from '../../../data/profile.model';
+import { initial } from 'lodash';
 
 describe('EditProfileComponent', () => {
   let component: EditProfileComponent;
@@ -15,15 +14,14 @@ describe('EditProfileComponent', () => {
   let profileMock: Profile[];
 
   beforeEach(async(() => {
-    accountServiceMock = jasmine.createSpyObj(['getProfile', 'getUserId', 'postProfile', 'deleteProfile']);
+    accountServiceMock = jasmine.createSpyObj(['getProfile', 'getUserId', 'postProfile', 'deleteProfile', 'isNullOrWhitespace']);
 
     TestBed.configureTestingModule({
       declarations: [EditProfileComponent],
       providers: [
         { provide: AccountService, useValue: accountServiceMock }
       ],
-      schemas: [NO_ERRORS_SCHEMA],
-      imports: [FormsModule, RouterTestingModule]
+      // imports: [FormsModule]
     })
       .compileComponents();
   }));
@@ -72,31 +70,22 @@ describe('EditProfileComponent', () => {
   });
 
   describe('toggleProfile', () => {
-
-    it('should show profile after toggle', () => {
+    it('should change hideProfile value to opposite', () => {
+      const initialValue = component.hideProfile;
       component.toggleProfile();
 
-      expect(component.hideProfile).toBeFalse();
+      expect(component.hideProfile).not.toBe(initialValue);
       // Test the actual element
     });
   });
 
-  describe('isNullOrWhitespace', () => {
-    it('should return true on null string', () => {
+  describe('removeImage', () => {
+    it('should remove the newProfileImage', () => {
+      component.newProfile.image = 'bcuidsbcuidsbcuibds';
 
-      expect(component.isNullOrWhitespace(null)).toBeTrue();
-    });
-    it('should return true on empty string', () => {
-
-      expect(component.isNullOrWhitespace('')).toBeTrue();
-    });
-    it('should return true on string of spaces string', () => {
-
-      expect(component.isNullOrWhitespace('  ')).toBeTrue();
-    });
-    it('should return false on non null/emtpy string', () => {
-
-      expect(component.isNullOrWhitespace('null')).toBeFalse();
+      component.removeImage();
+      expect(component.newProfile.image).toBeFalsy();
+      expect(component.isImageSaved).toBeFalse();
     });
   });
 
@@ -105,6 +94,7 @@ describe('EditProfileComponent', () => {
       accountServiceMock.getProfile.and.returnValue(of(profileMock));
       accountServiceMock.getUserId.and.returnValue(of(1));
       accountServiceMock.postProfile.and.returnValue(of(true));
+      accountServiceMock.isNullOrWhitespace.and.returnValue(false);
       const newProfile: Profile = {
         id: 1,
         accountId: 1,
@@ -126,20 +116,112 @@ describe('EditProfileComponent', () => {
       expect(component.profiles.length).toBe(3);
       expect(component.profiles[2].email).toBe('tom@tim.com');
     });
+    it('should not add profile with empty name', () => {
+      accountServiceMock.getProfile.and.returnValue(of(profileMock));
+      accountServiceMock.getUserId.and.returnValue(of(1));
+      accountServiceMock.postProfile.and.returnValue(of(false));
+      accountServiceMock.isNullOrWhitespace.and.returnValue(true);
+      const newProfile: Profile = {
+        id: 1,
+        accountId: 1,
+        email: 'tom@tim.com',
+        name: {
+          id: 0,
+          family: '',
+          given: ''
+        },
+        phone: '5551234567',
+        age: 'Adult',
+        image: null
+      };
+      component.newProfile = newProfile;
+      fixture.detectChanges();
+      component.addProfile();
+
+      expect(accountServiceMock.postProfile).not.toHaveBeenCalled();
+    });
+    // it('should not add profile with duplicate names', () => {
+    //   accountServiceMock.getProfile.and.returnValue(of(profileMock));
+    //   accountServiceMock.getUserId.and.returnValue(of(1));
+    //   accountServiceMock.postProfile.and.returnValue(of(false));
+    //   const newProfile: Profile = {
+    //     id: 1,
+    //     accountId: 1,
+    //     email: 'tom@tim.com',
+    //     name: {
+    //       id: 0,
+    //       family: 'Doe',
+    //       given: 'John'
+    //     },
+    //     phone: '5551234567',
+    //     age: 'Adult',
+    //     image: null
+    //   };
+    //   component.newProfile = newProfile;
+    //   fixture.detectChanges();
+    //   component.addProfile();
+
+    //   expect(accountServiceMock.postProfile).not.toHaveBeenCalled();
+    // });
+    // it('should not add profile with invalid phone number', () => {
+    //   accountServiceMock.getProfile.and.returnValue(of(profileMock));
+    //   accountServiceMock.getUserId.and.returnValue(of(1));
+    //   accountServiceMock.postProfile.and.returnValue(of(false));
+    //   const newProfile: Profile = {
+    //     id: 1,
+    //     accountId: 1,
+    //     email: 'tom@tim.com',
+    //     name: {
+    //       id: 0,
+    //       family: 'tim',
+    //       given: 'tom'
+    //     },
+    //     phone: '5551234',
+    //     age: 'Adult',
+    //     image: null
+    //   };
+    //   component.newProfile = newProfile;
+    //   fixture.detectChanges();
+    //   component.addProfile();
+
+    //   expect(accountServiceMock.postProfile).not.toHaveBeenCalled();
+    // });
+    // it('should not add profile with empty email', () => {
+    //   accountServiceMock.getProfile.and.returnValue(of(profileMock));
+    //   accountServiceMock.getUserId.and.returnValue(of(1));
+    //   accountServiceMock.postProfile.and.returnValue(of(false));
+    //   const newProfile: Profile = {
+    //     id: 1,
+    //     accountId: 1,
+    //     email: '',
+    //     name: {
+    //       id: 0,
+    //       family: 'tim',
+    //       given: 'tom'
+    //     },
+    //     phone: '5551234567',
+    //     age: 'Adult',
+    //     image: null
+    //   };
+    //   component.newProfile = newProfile;
+    //   fixture.detectChanges();
+    //   component.addProfile();
+
+    //   expect(accountServiceMock.postProfile).not.toHaveBeenCalled();
+    // });
   });
 
   describe('removeProfile', () => {
-    it('should remove correct profile', () => {
+    it('should remove profile', () => {
       accountServiceMock.getProfile.and.returnValue(of(profileMock));
       accountServiceMock.getUserId.and.returnValue(of(1));
       accountServiceMock.deleteProfile.and.returnValue(of(true));
+
       fixture.detectChanges();
 
       component.removeProfile(profileMock[0].id);
-      profileMock.shift();
 
-      expect(component.profiles.length).toBe(1);
-      expect(component.profiles[0]).toBe(profileMock[0]);
+      expect(accountServiceMock.deleteProfile).toHaveBeenCalled();
     });
   });
 });
