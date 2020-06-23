@@ -56,6 +56,7 @@ export class LodgingAddReviewComponent implements OnInit {
       id: '0',
       accountId: this.account.id,
       lodgingId: this.lodge.id,
+      lodging: null,
       comment: this.reviewForm.controls.comment.value,
       dateCreated: new Date(Date.now()),
       rating: this.reviewForm.controls.rating.value,
