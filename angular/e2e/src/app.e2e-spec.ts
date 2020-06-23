@@ -1,5 +1,6 @@
 import { AppPage } from './app.po';
-import { browser, logging } from 'protractor';
+import { browser, logging, element, by } from 'protractor';
+import { link } from 'fs';
 
 describe('project rvtr-app-campsite', () => {
   let page: AppPage;
