@@ -4,6 +4,7 @@ import { DisplayBookingsComponent } from './display-bookings.component';
 import { LodgingService } from 'src/app/services/lodging/lodging.service';
 import { Booking } from 'src/app/data/booking.model';
 import { of } from 'rxjs';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 
 describe('DisplayBookingsComponent', () => {
@@ -20,13 +21,14 @@ describe('DisplayBookingsComponent', () => {
     lodgingServiceMock = jasmine.createSpyObj(['get']);
 
     TestBed.configureTestingModule({
-      declarations: [ DisplayBookingsComponent ],
+      declarations: [DisplayBookingsComponent],
+      imports: [HttpClientTestingModule],
       providers: [
         { provide: AccountService, useValue: accountServiceMock },
         { provide: LodgingService, useValue: lodgingServiceMock }
       ],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -34,9 +36,8 @@ describe('DisplayBookingsComponent', () => {
       id: '1',
       accountId: '1',
       lodgingId: '1',
-      lodging: null,
       guests: null,
-      rentals: null,
+      bookingRentals: null,
       stay: {
         id: '1',
         checkIn: new Date('1/10/2020'),
@@ -50,9 +51,8 @@ describe('DisplayBookingsComponent', () => {
       id: '2',
       accountId: '1',
       lodgingId: '2',
-      lodging: null,
       guests: null,
-      rentals: null,
+      bookingRentals: null,
       stay: {
         id: '2',
         checkIn: new Date('1/10/2020'),
