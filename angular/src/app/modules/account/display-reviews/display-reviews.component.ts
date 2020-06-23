@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AccountService } from 'src/app/services/account/account.service';
 import { map } from 'rxjs/operators';
 import { Review } from 'src/app/data/review.model';
+import { ReviewService } from 'src/app/services/lodging/review.service';
+import { HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'uic-display-reviews',
@@ -17,12 +19,15 @@ export class DisplayReviewsComponent implements OnInit {
   // http get to call the most recent 2 reviews by the account from the review service. using account id.
   // The 2 listings serve as a quick snapshot accessible from the account dashboard
   getReviews() {
-    this.accountService.getReviews(this.accountService.getUserId())
+    const id: string = this.accountService.getUserId();
+    this.reviewService.get(undefined, new HttpParams().set('AccoundId', id))
     .pipe(map(reviews => reviews.slice(0, 2)))
     .subscribe(val => this.reviews = val);
   }
 
-  constructor(private readonly accountService: AccountService) { }
+  constructor(private readonly accountService: AccountService,
+              private readonly reviewService: ReviewService
+    ) { }
 
   ngOnInit(): void {
     this.getReviews();

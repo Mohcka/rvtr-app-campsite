@@ -17,11 +17,10 @@ describe('BookingService', () => {
       id: '0',
       accountId: '0',
       lodgingId: '0',
-      lodging: null,
       guests: [],
-      rentals: [],
+      bookingRentals: [],
       stay: null,
-      status: '',
+      status: 'Valid',
     },
   ];
 
@@ -30,7 +29,7 @@ describe('BookingService', () => {
       const config: Config = {
         api: {
           account: null,
-          booking: 'test',
+          booking: { booking: 'test', stay: 'test' },
           lodging: null,
           monitoring: null
         },
@@ -69,7 +68,7 @@ describe('BookingService', () => {
 
     tick();
 
-    req = httpTestingController.expectOne('test?id=0');
+    req = httpTestingController.expectOne('test/0');
     req.flush(JSON.stringify(true));
   }));
 

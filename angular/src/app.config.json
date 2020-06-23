@@ -9,8 +9,8 @@
         "profile": "Profile"
       }
     },
-    "booking": null,
-    "lodging": null,
+    "booking": {"booking": "https://localhost:44334/api/v0/Booking"},
+    "lodging": "https://localhost:44326/api/v0",
     "monitoring": "https://ec61288c429544a6ad850b94de25004a@o388320.ingest.sentry.io/5229046"
   },
   "navigation": {
