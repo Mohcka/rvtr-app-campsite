@@ -1,7 +1,10 @@
 {
   "api": {
+    "booking": {
+      "booking": "https://localhost:5001/api/v0/Booking",
+      "stay": "https://localhost:5001/api/v0/Stay"
+    },
     "account": "http://localhost:3000/account",
-    "booking": null,
     "lodging": "https://localhost:5001/api/v0",
     "monitoring": "https://ec61288c429544a6ad850b94de25004a@o388320.ingest.sentry.io/5229046"
   },

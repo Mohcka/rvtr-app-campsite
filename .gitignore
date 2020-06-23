@@ -12,6 +12,8 @@ node_modules/
 # sonarqube
 .scannerwork/
 
+# vscode
+.vscode/
 **/.vs
 **/.vs/*
 **/justfile
