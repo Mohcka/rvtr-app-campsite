@@ -56,7 +56,7 @@
     "e2e": "ng e2e",
     "lint": "ng lint",
     "start": "ng serve",
-    "gen-docs": "typedoc --out docs src/app/modules src/app/services src/app/data --mode file --exclude \"**/*+(mock).ts\"",
+    "gen-docs": "typedoc --out docs src/app/modules src/app/services src/app/data --mode file --exclude \"**/mock-booking-data.ts\"",
     "test": "ng test --code-coverage",
     "update": "webdriver-manager update --versions.chrome 80.0.3987.106"
   }
