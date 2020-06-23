@@ -1,67 +1,67 @@
 <h2 class="title has-text-light is-4">payments 
-    <!-- Toggle button for hiding and displaying the add payment form -->
-    <button class="button is-small" id="add-payment"
-      (click)="toggleCard()" type="button">Add
-    </button>
-  </h2>
-  <!-- Displays, hides contents on add payment button click -->
-  <div *ngIf="!hideCard" [@slideInOut] class="level-left">
-    <!-- Input for payment card brand name -->
+  <!-- Toggle button for hiding and displaying the add payment form -->
+  <button class="button is-small" id="add-payment"
+    (click)="toggleCard()" type="button">Add
+  </button>
+</h2>
+<!-- Displays, hides contents on add payment button click -->
+<div *ngIf="!hideCard" [@slideInOut] class="level-left">
+  <!-- Input for payment card brand name -->
+  <div class="level-item has-text-light">
+    <div>
+      <p class="heading">bank</p>
+      <input placeholder="visa/master/amex..." type="string" [(ngModel)]="newCard.cardName" name="newCardName" id="card-name"
+        class="has-text-dark is-5" />
+    </div>
+  </div>
+  <!-- Input for payment card number -->
+  <div class="level-item has-text-light">
+    <div>
+      <p class="heading">number</p>
+      <input placeholder="13-16 digit card #" type="number" [(ngModel)]="newCard.cardNumber" name="newCardNumber" class="has-text-dark is-6" />
+    </div>
+  </div>
+  <!-- Input for payment card expiration date -->
+  <div class="level-item has-text-light">
+    <div>
+      <p class="heading">expiry</p>
+      <input type="date" [(ngModel)]="newCard.cardExpirationDate" name="newCardExp" class="has-text-dark is-6" />
+      <!-- Adds payment card with above values on button click, placed inside div for proper margin spacing -->
+      &nbsp;<button type="button" class="button is-small" style="height: 27px;"
+        (click)="addCard();">Add</button>
+    </div>
+  </div>
+</div>
+<!-- Lists all current payments associated with an account -->
+<div class="level" *ngFor="let payment of cards">
+  <div class="level-left">
+    <!-- Displays the payment card brand name -->
     <div class="level-item has-text-light">
       <div>
         <p class="heading">bank</p>
-        <input placeholder="visa/master/amex..." type="string" [(ngModel)]="newCard.cardName" name="newCardName" id="card-name"
-          class="has-text-dark is-5" />
+        <p class="title has-text-light is-6">{{payment.cardName}}</p>
       </div>
     </div>
-    <!-- Input for payment card number -->
+    <!-- Displays the payment card number -->
     <div class="level-item has-text-light">
       <div>
         <p class="heading">number</p>
-        <input placeholder="13-16 digit card #" type="number" [(ngModel)]="newCard.cardNumber" name="newCardNumber" class="has-text-dark is-6" />
+        <p class="title has-text-light is-6">{{payment.cardNumber}}</p>
       </div>
     </div>
-    <!-- Input for payment card expiration date -->
+    <!-- Displays the payment card expiration date -->
     <div class="level-item has-text-light">
       <div>
         <p class="heading">expiry</p>
-        <input type="date" [(ngModel)]="newCard.cardExpirationDate" name="newCardExp" class="has-text-dark is-6" />
-        <!-- Adds payment card with above values on button click, placed inside div for proper margin spacing -->
-        &nbsp;<button type="button" class="button is-small" style="height: 27px;"
-          (click)="addCard();">Add</button>
+        <p class="title has-text-light is-6">{{payment.cardExpirationDate | date:'shortDate'}} </p>
       </div>
     </div>
   </div>
-  <!-- Lists all current payments associated with an account -->
-  <div class="level" *ngFor="let payment of cards">
-    <div class="level-left">
-      <!-- Displays the payment card brand name -->
-      <div class="level-item has-text-light">
-        <div>
-          <p class="heading">bank</p>
-          <p class="title has-text-light is-6">{{payment.cardName}}</p>
-        </div>
-      </div>
-      <!-- Displays the payment card number -->
-      <div class="level-item has-text-light">
-        <div>
-          <p class="heading">number</p>
-          <p class="title has-text-light is-6">{{payment.cardNumber}}</p>
-        </div>
-      </div>
-      <!-- Displays the payment card expiration date -->
-      <div class="level-item has-text-light">
-        <div>
-          <p class="heading">expiry</p>
-          <p class="title has-text-light is-6">{{payment.cardExpirationDate | date:'shortDate'}} </p>
-        </div>
-      </div>
-    </div>
-    <!-- Contains a button for removing a particular payment from an account -->
-    <div class="level-item level-right has-text-light">
-      <div>
-        <button type="button" class="button is-small" style="margin-top: 20px;"
-          (click)="removeCard(payment.id)">Remove</button>
-      </div>
+  <!-- Contains a button for removing a particular payment from an account -->
+  <div class="level-item level-right has-text-light">
+    <div>
+      <button type="button" class="button is-small" style="margin-top: 20px;"
+        (click)="removeCard(payment.id)">Remove</button>
     </div>
   </div>
+</div>
